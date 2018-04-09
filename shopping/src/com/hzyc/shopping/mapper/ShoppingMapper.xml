@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.hzyc.shopping.mapper.ShoppingMapper">
+		
+		<insert id="insertUserRegister" parameterType="UserRegister">
+			insert into UserRegister(username,password,email,bankCard,NAME,idCard,indentity) values(#{username},#{password},#{email},#{bankCard},#{name},#{idCard},#{indentity})
+		</insert>
+		<select id="queryGKindAll" resultType="GKind">
+			select * from goodsKind
+		</select>
+		<insert id="inertGoods" parameterType="Goods">
+			insert into good(gId,gName,gKind,gNumber,gPrice,gBusiness,gImg,discount) values(#{gId},#{gName},#{gKind},#{gNumber},#{gPrice},#{gBusiness},#{gImg},#{discount}) 
+		</insert>
+		<insert id="insertGKind" parameterType="GKind">
+			insert into goodsKind(KName) values(#{kName})
+		</insert>
+		<delete id="deleteGKind" parameterType="DGKinds">
+			delete from goodsKind where	kName = #{dKind}
+ 		</delete>
+ 		<select id="queryGoodsToatal" resultType="int">
+ 			select count(*) from good
+ 		</select>
+ 		<select id="queryGoodsAll" parameterType="Page" resultType="Goods">
+ 			select * from good limit #{position} , #{size}
+ 		</select>
+ 		<select id="queryGoodsOne" parameterType="String"  resultType="Goods">
+ 			select * from good where gId = #{gId}
+ 		</select>
+ 		<update id="upadateOne" parameterType="Goods" >
+ 			update good set gName=#{gName},gKind=#{gKind},gNumber=#{gNumber},gPrice=#{gPrice},gBusiness=#{gBusiness},gImg=#{gImg},discount=#{discount} where gId = #{gId}
+ 		</update>
+ 		<delete id="deleteOne" parameterType="String">
+ 			delete from good where gId=#{gId}
+ 		</delete>
+ 		<insert id="addAdv" parameterType="Adv">
+ 			insert into advertis(path) values(#{path})
+ 		</insert>
+ 		<select id="quertAllAdv" resultType="Adv" parameterType="Page">
+ 			select * from advertis limit #{position},#{size}
+ 		</select>
+ 		<select id="quertAllAdvToatal" resultType="int">
+ 			select count(*) from advertis
+ 		</select>
+ 		<delete id="deleteAdvOne" parameterType="String">
+ 			delete from advertis where id = #{id}
+ 		</delete>
+ 		<update id="updateAdvInit">
+ 			update advertis set mark = 0 where mark =1;
+ 		</update>
+ 		<update id="updateAdvMark" parameterType="String">
+ 			update advertis set mark = 1 where id =#{id};
+ 		</update>
+ 		<select id="showKindsGood"  resultType="Goods">
+ 			select * from good 
+ 		</select>
+ 		<select id="showAdv" resultType="Adv">
+ 			select * from advertis where mark =1
+ 		</select>
+ 		<select id="login" parameterType="String" resultType="UserRegister">
+ 			select * from UserRegister where username=#{username}
+ 		</select>
+ 		<insert id="addGoodsCar" parameterType="GoodsCar">
+ 			insert into goodscar(userName,goodId) value(#{userName},#{goodId}) 
+ 		</insert>
+ 		<select id="queryGoodCar" parameterType="String" resultType="GoodsCar">
+ 			select * from goodscar where userName = #{usernNme}  and mark = 0 
+ 		</select>
+ 		<select id="queryGoodCarBygId" parameterType="String" resultType="GoodsCar">
+ 			select * from goodscar where goodId = #{goodId}
+ 		</select>
+ 		<update id="updategcById" parameterType="GoodsCar">
+ 			update goodscar set number=#{number},money=#{money},mark=#{mark} where goodId = #{goodId}
+ 		</update>
+ 		<delete id="deleteGCById" parameterType="String">
+ 			delete from goodscar where goodId = #{goodId}
+ 		</delete>
+ 		<select id="showBuyGoods" resultType="GoodsCar">
+ 			select * from goodscar  
+ 		</select>
+	</mapper>
+	
